@@ -7,7 +7,7 @@ constructor () {
   super ();
 
   this.state = {
-    name: "Bob"
+    name: "Ren"
   }
 }
 
@@ -19,7 +19,9 @@ render () {
         <p>
           Hi {this.state.name}!
         </p>
-        <button>Change name</button>
+        <button onClick={() => {
+          this.setState({name: "Bob"})
+        }}>Change name</button>
       </header>
     </div>
   );
