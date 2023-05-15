@@ -3,28 +3,32 @@ import logo from "./logo.svg";
 import "./App.css";
 
 class App extends Component {
+  // always runs first, initiallizes the state
   constructor() {
     super();
 
     this.state = {
-      monsters: [
-        {
-          name: "Linda",
-          id: "12345",
-        },
-        {
-          name: "Frank",
-          id: "22345",
-        },
-        {
-          name: "Jacky",
-          id: "32345",
-        },
-        { name: "Andrei", id: "42345" },
-      ],
+      monsters: [],
     };
   }
 
+  // runs after the render
+  componentDidMount() {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) =>
+        this.setState(
+          () => {
+            return { monsters: users };
+          },
+          () => {
+            console.log(this.state);
+          }
+        )
+      );
+  }
+
+  // runs second, dictates what the UI will be
   render() {
     return (
       <div className="App">
