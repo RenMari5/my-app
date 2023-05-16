@@ -1,7 +1,7 @@
 import { Component } from "react";
-import "./App.css";
 import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
+import "./App.css";
 
 class App extends Component {
   // always runs first, initiallizes the state
