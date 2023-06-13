@@ -6,26 +6,27 @@ import { useState, useEffect } from "react";
 const App = () => {
   const [searchField, setSearchField] = useState(""); // [value, setValue]
   const [monsters, setMonsters] = useState([]);
-  console.log({ searchField });
-
-  console.log("render");
+  const [filteredMonsters, setFilteredMonsters] = useState(monsters);
 
   useEffect(() => {
-    console.log("effect fired");
     // code or "effect" we want to happen
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) => setMonsters(users));
-  }, []);
+  }, []); // tells the app to ONLY call the function onMount
+
+  useEffect(() => {
+    const newFilteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(searchField);
+    });
+
+    setFilteredMonsters(newFilteredMonsters);
+  }, [monsters, searchField]);
 
   const onSearchChange = (event) => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
     setSearchField(searchFieldString);
   };
-
-  const filteredMonsters = monsters.filter((monster) => {
-    return monster.name.toLocaleLowerCase().includes(searchField);
-  });
 
   return (
     <div className="App">
